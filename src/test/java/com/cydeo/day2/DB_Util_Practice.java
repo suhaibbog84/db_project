@@ -19,6 +19,17 @@ public class DB_Util_Practice {
         //THIS WILL PRINT OUT EVERY CELL IN THE RESULT
         DB_Util.displayAllData();
 
+        //get the country name from second row
+        System.out.println("DB_Util.getCellValue(2, \"COUNTRY_NAME\") = "
+                + DB_Util.getCellValue(2, "COUNTRY_NAME"));
+
+        //get second column from second row
+        System.out.println("DB_Util.getCellValue(2, 2) = "
+                + DB_Util.getCellValue(2, 2));
+
+        // This will clean up resultSet
+        DB_Util.destroy();
+
 
 
     }
