@@ -1,0 +1,198 @@
+--THIS IS HOW WE WRITE COMMENT IN SQL
+--Single line comment look like this
+/*
+ This is how we write
+ multi line comment
+ */
+--each query we write known as sql SELECT statement
+-- * means all COLUMNS
+--JUST LIKE JAVA SQL STATEMENT END WITH ;
+SELECT *
+FROM REGIONS;
+
+SELECT *
+FROM COUNTRIES;
+
+SELECT *
+FROM LOCATIONS;
+
+SELECT *
+FROM DEPARTMENTS;
+
+SELECT *
+FROM JOBS;
+
+SELECT *
+FROM JOB_HISTORY;
+
+SELECT *
+FROM EMPLOYEES;
+
+--RESTRICTION COLUMN IN THE RESULT
+--sql is space insensitive
+SELECT FIRST_NAME
+FROM EMPLOYEES;
+
+SELECT FIRST_NAME, LAST_NAME, EMAIL
+FROM EMPLOYEES;
+
+SELECT DEPARTMENT_ID, DEPARTMENT_NAME
+FROM DEPARTMENTS;
+
+SELECT LOCATION_ID, STREET_ADDRESS, POSTAL_CODE
+FROM LOCATIONS;
+
+/**
+  only getting Unique value from the result
+  for example, only get unique 1st name from employee
+  table
+ */
+
+SELECT DISTINCT FIRST_NAME
+FROM EMPLOYEES;
+
+SELECT DISTINCT LAST_NAME
+FROM EMPLOYEES;
+
+--THIS IS LOOKING FOR PEOPLE WITH UNIQUE FULL NAME
+--THAT MEANS NOT THE SAME AS ANYONE ELSE
+SELECT DISTINCT FIRST_NAME, LAST_NAME
+FROM EMPLOYEES;
+
+--RESTRICTION ROWS IN THE RESULT USING WHERE CLAUSE
+
+--OPERATORS : = , > >= , < <= , != , <>
+--LOGICAL OPERATORS : AND , OR
+
+--DISPLAY The employee information for the employee with first name Ellen
+SELECT *
+FROM EMPLOYEES
+WHERE FIRST_NAME = 'Ellen';
+--Ellen != ELLEN as values are case sensitive
+
+--Display the employee FIRST_NAME, LAST_NAME, SALARY
+--for the employee with SALARY 11000
+SELECT FIRST_NAME, LAST_NAME, SALARY
+FROM EMPLOYEES
+WHERE SALARY = 11000;
+
+--Display the employee FIRST_NAME, LAST_NAME, SALARY
+--for the employee with SALARY 4800 and first name
+--is David
+
+SELECT FIRST_NAME, LAST_NAME, SALARY
+FROM EMPLOYEES
+WHERE FIRST_NAME = 'David'
+  AND SALARY = 4800;
+
+-- Display the Employee FIRST_NAME, LAST_NAME,SALARY
+-- for the employee with SALARY 4800 OR FIRST_NAME David
+SELECT FIRST_NAME, LAST_NAME, SALARY
+FROM EMPLOYEES
+WHERE FIRST_NAME = 'David'
+   OR SALARY = 4800;
+
+--Display the employees that make more than 5000 and less than 12000
+
+SELECT FIRST_NAME, LAST_NAME, SALARY
+FROM EMPLOYEES
+WHERE SALARY > 5000
+  AND EMPLOYEES.SALARY < 12000;
+
+--RANGE CHECKING IS MUCH SIMPLER IN SQL USING
+--BETWEEN..... AND
+--Is same as COLUMN_VALUE >= lowerLimit and COLUMN_VALUE <= UpperLimit
+--Above query can be much simpler and more readable as below
+SELECT * FROM EMPLOYEES
+WHERE SALARY BETWEEN 5000 AND 12000;
+
+--Display the employees that have JOB_ID of
+--AD_VP
+--AD_ASST
+--FI_ACCOUNT
+--AC_ACCOUNT
+SELECT FIRST_NAME, JOB_ID
+FROM EMPLOYEES
+WHERE JOB_ID = 'AD_VP'
+   OR JOB_ID = 'AD_ASST'
+   OR JOB_ID = 'FI_ACCOUNT'
+   OR JOB_ID = 'AC_ACCOUNT';
+
+--using keyword in or multiple possible value of same column in condition
+SELECT FIRST_NAME, JOB_ID
+FROM EMPLOYEES
+WHERE JOB_ID IN ('AD_VP', 'AD_ASST', 'FI_ACCOUNT', 'AC_ACCOUNT');
+
+--How to say not in SQL
+-- for equality != or <> ,
+--Find OUT ALL REGIONS EXCEPT THE REGION WITH REGION_ID OF 1
+SELECT * FROM REGIONS
+WHERE REGION_ID <> 1;
+--OR WHERE REGION_ID != 1;
+
+--Find OUT ALL REGIONS EXCEPT THE REGION WITH REGION_NAME OF America
+SELECT * FROM REGIONS
+WHERE REGION_NAME <> 'Americas';
+
+-- for Between AND --> NOT Between .. AND
+
+--Display the employees that DOES NOT make
+--more than 500 and less than 12000
+
+SELECT FIRST_NAME, SALARY
+FROM EMPLOYEES
+WHERE SALARY NOT BETWEEN 5000 AND 12000;
+
+--for IN --> NOT IN
+--Display the employees that have JOB_ID THAT IS NOT THE SAME AS:
+--AD_VP, AD_ASST, FI_ACCOUNT, AC_ACCOUNT
+SELECT FIRST_NAME, JOB_ID
+FROM EMPLOYEES
+WHERE JOB_ID NOT IN ('AD_VP', 'AD_ASST', 'FI_ACCOUNT', 'AC_ACCOUNT');
+
+--HOW TO USE NULL IN CONDITION?
+--all department with null value
+SELECT * FROM DEPARTMENTS
+WHERE MANAGER_ID IS NULL ;
+
+--all department with value that is not null
+SELECT * FROM DEPARTMENTS
+WHERE MANAGER_ID IS NOT NULL ;
+
+--sorting the result in ascending (LOW to HIGH) or descending order (HIGH to LOW)
+--ORDER BY CLAUSE CAN BE USED TO ORDER THE RESULT of your query
+--it use either column name or column index
+--it must be the last part of the statement
+
+--Display employee FIRST_NAME and LAST_NAME and salary
+--try to sort by below criteria separately
+--FIRST_NAME ASC
+--salary DESC
+--LAST_NAME DESC
+SELECT FIRST_NAME, LAST_NAME, SALARY
+FROM EMPLOYEES
+--ORDER BY FIRST_NAME ASC;
+--ORDER BY SALARY DESC ;
+--ORDER BY LAST_NAME DESC;
+ORDER BY 1 DESC; --THIS MEAN SORT THE RESULT BY 1ST COLUMN
+
+--WHAT ABOUT THE PARTIAL SEARCH
+--WE USE LIKE AND % (WILD CARD)
+--% can represent 0 or more character of any kind
+--_can represent exactly one character of any kind
+
+--Display ALL THE FIRST NAME THAT START WITH LETTER A IN EMPLOYEES TABLES
+SELECT FIRST_NAME
+FROM EMPLOYEES
+WHERE FIRST_NAME LIKE 'A%';
+
+--Display ALL THE FIRST NAME THAT ENDS WITH LETTER A IN EMPLOYEES TABLES
+SELECT FIRST_NAME
+FROM EMPLOYEES
+WHERE FIRST_NAME LIKE '%a';
+
+--Display ALL THE FIRST NAME THAT contains THE LETTER A IN EMPLOYEES TABLES
+SELECT FIRST_NAME
+FROM EMPLOYEES
+WHERE FIRST_NAME LIKE '%a%' AND FIRST_NAME LIKE '%A%';
+
