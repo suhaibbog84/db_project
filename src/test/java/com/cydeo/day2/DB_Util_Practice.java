@@ -27,6 +27,14 @@ public class DB_Util_Practice {
         System.out.println("DB_Util.getCellValue(2, 2) = "
                 + DB_Util.getCellValue(2, 2));
 
+        //get row count
+        System.out.println("DB_Util.getRowCount() = "
+                + DB_Util.getRowCount());
+
+        //get column count
+        System.out.println("DB_Util.getColumnCount() = "
+                + DB_Util.getColumnCount());
+
         // This will clean up resultSet
         DB_Util.destroy();
 
