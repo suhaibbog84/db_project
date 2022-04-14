@@ -39,6 +39,31 @@ public class DB_Util_Practice {
         System.out.println("DB_Util.getAllColumnNamesAsList() = "
                 + DB_Util.getAllColumnNamesAsList());
 
+        //get entire third row as list
+        System.out.println("DB_Util.getRowDataAsList(3) = "
+                + DB_Util.getRowDataAsList(3));
+
+        //Get the entire second column as list
+        System.out.println("DB_Util.getColumnDataAsList(2) = \n\t"
+                + DB_Util.getColumnDataAsList(2));
+
+        //get the COUNTRY_NAME column as list of string
+        System.out.println("DB_Util.getColumnDataAsList(\"COUNTRY_NAME\") = \n\t"
+                + DB_Util.getColumnDataAsList("COUNTRY_NAME"));
+
+        //get the second row as Map<String, String>
+        System.out.println("DB_Util.getRowMap(2) = \n\t" + DB_Util.getRowMap(2));
+
+        //get all rows as list of maps
+        System.out.println("DB_Util.getRowDataAsList(2) = \n\t"
+                + DB_Util.getRowDataAsList(2));
+
+        //run this query and get the only cell in the result
+        // SELECT COUNT(*) COUNT from EMPLOYEES
+        DB_Util.runQuery("SELECT COUNT(*) COUNT FROM EMPLOYEES");
+        System.out.println("DB_Util.getFirstRowFirstColumn() = "
+                + DB_Util.getFirstRowFirstColumn());
+
         // This will clean up resultSet
         DB_Util.destroy();
 
