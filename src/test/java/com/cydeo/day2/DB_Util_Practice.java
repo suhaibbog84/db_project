@@ -35,6 +35,10 @@ public class DB_Util_Practice {
         System.out.println("DB_Util.getColumnCount() = "
                 + DB_Util.getColumnCount());
 
+        //get all column name as list
+        System.out.println("DB_Util.getAllColumnNamesAsList() = "
+                + DB_Util.getAllColumnNamesAsList());
+
         // This will clean up resultSet
         DB_Util.destroy();
 
