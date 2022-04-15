@@ -1,5 +1,6 @@
 package com.cydeo.day3;
 
+import com.cydeo.utility.DB_Util;
 import org.testng.annotations.Test;
 
 /**
@@ -29,8 +30,16 @@ public class SpartanSearchTest {
         int actualResultFemale = 47;
 
         // now get expected result from database query
-        // For MALE : SELECT COUNT(*) AS MALE_COUNT FROM SPARTAN WHERE GENDER = 'MALE'
-        // For FEMALE : SELECT COUNT(*) AS FEMALE_COUNT FROM SPARTAN WHERE GENDER = 'FEMALE'
+        // For MALE : SELECT COUNT(*) AS MALE_COUNT FROM SPARTANS WHERE GENDER = 'MALE'
+        // For FEMALE : SELECT COUNT(*) AS FEMALE_COUNT FROM SPARTANS WHERE GENDER = 'FEMALE'
+
+        String url = "jdbc:oracle:thin:@54.235.2.232:1521:XE";
+        String username = "SP";
+        String password = "SP" ;
+
+        DB_Util.createConnection(url, username, password);
+        DB_Util.runQuery("SELECT COUNT(*) AS MALE_COUNT FROM SPARTANS WHERE GENDER = 'MALE'");
+        int expectedResult =  Integer.parseInt( DB_Util.getFirstRowFirstColumn() )  ;
 
 
 
