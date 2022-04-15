@@ -1,7 +1,11 @@
 package com.cydeo.day3;
 
 import com.cydeo.utility.DB_Util;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import static org.testng.AssertJUnit.assertEquals;
 
 /**
  * Background : on Spartan UI All Data page ,
@@ -19,8 +23,25 @@ import org.testng.annotations.Test;
 
 public class SpartanSearchTest {
 
+    @BeforeClass
+    public void setup(){
+
+        // create connection ONLY ONCE! for all tests in this class
+        String url = "jdbc:oracle:thin:@54.235.2.232:1521:XE";
+        String username = "SP";
+        String password = "SP";
+
+        DB_Util.createConnection(url, username, password);
+    }
+
+    @AfterClass
+    public void teardown(){
+        // tear down the connection only once after all the tests in this class
+        DB_Util.destroy();
+    }
+
     @Test
-    public void testSearchByGender(){
+    public void testSearchByGenderMale() {
 
         // Assuming you already used your awesome webdriver knowledge
         // to get actual result from that total count
@@ -33,16 +54,19 @@ public class SpartanSearchTest {
         // For MALE : SELECT COUNT(*) AS MALE_COUNT FROM SPARTANS WHERE GENDER = 'MALE'
         // For FEMALE : SELECT COUNT(*) AS FEMALE_COUNT FROM SPARTANS WHERE GENDER = 'FEMALE'
 
-        String url = "jdbc:oracle:thin:@54.235.2.232:1521:XE";
-        String username = "SP";
-        String password = "SP" ;
+        DB_Util.runQuery("SELECT COUNT(*) AS MALE_COUNT FROM SPARTANS WHERE GENDER = 'Male'");
+        int expectedMaleResult = Integer.parseInt(DB_Util.getFirstRowFirstColumn());
 
-        DB_Util.createConnection(url, username, password);
-        DB_Util.runQuery("SELECT COUNT(*) AS MALE_COUNT FROM SPARTANS WHERE GENDER = 'MALE'");
-        int expectedResult =  Integer.parseInt( DB_Util.getFirstRowFirstColumn() )  ;
+        // assert Male
+        assertEquals(actualResultMale, expectedMaleResult);
 
 
+        DB_Util.runQuery("SELECT COUNT(*) AS FEMALE_COUNT FROM SPARTANS WHERE GENDER = 'Female'");
+        int expectedFemaleResult = Integer.parseInt(DB_Util.getFirstRowFirstColumn());
 
+        // assert Female
+        assertEquals(actualResultFemale, expectedFemaleResult);
 
     }
+
 }
