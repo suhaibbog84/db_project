@@ -9,7 +9,7 @@ import static org.testng.AssertJUnit.assertEquals;
 public class LibraryDashBoardTest {
 
     @Test
-    public void testDashboardNumbers(){
+    public void testDashboardBookCount(){
 
         // Dashboard numbers are previously not matching the database numbers
         // the test is meant to check
@@ -41,6 +41,36 @@ public class LibraryDashBoardTest {
         // destroy your connection
         DB_Util.destroy();
 
+    }
+
+    @Test
+    public void testDashboardUserCount(){
+
+        // Dashboard numbers are previously not matching the database numbers
+        // the test is meant to check
+        // the actual results from dashboard page matches database results
+
+        int actualUsersCount = 141;
+
+        //Expected result we can get from running this query
+        // SELECT COUNT(*) AS BOOK_COUNT FROM users
+
+        String url = "jdbc:mysql://34.230.35.214:3306/library2";
+        String username = "library2_client";
+        String password = "6s2LQQTjBcGFfDhY" ;
+
+        DB_Util.createConnection(url, username, password);
+        DB_Util.runQuery("SELECT COUNT(*) AS USERS_COUNT FROM users");
+        int expectedUsersResult = Integer.parseInt( DB_Util.getFirstRowFirstColumn() )  ;
+
+        assertEquals(actualUsersCount, expectedUsersResult);
+
+
+        // destroy your connection
+        DB_Util.destroy();
 
     }
+
+
+
 }
